@@ -1,0 +1,378 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    min-height: 100vh;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-white; /* Default all headings to white */
+  }
+  .text-gray-600 {
+    /* Adjust general gray text for readability on dark backgrounds */
+    @apply text-gray-300;
+  }
+}
+/* Custom Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.3);
+  }
+}
+
+@keyframes neon-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor, 0 0 20px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor, 0 0 40px currentColor;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.neon-pulse {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+.gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.sparkle {
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+/* Glassmorphism Effects */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(0, 0, 0, 0.7); /* Darker and more opaque */
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  /* Added subtle glow using a custom property */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 15px var(--card-neon-glow-color, rgba(255, 255, 255, 0.1));
+  transition: all 0.3s ease-in-out; /* Ensure smooth transitions for hover-lift */
+  /* Add grainy look */
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.02) 1px, transparent 1%);
+  background-size: 3px 3px; /* Small size for grain effect */
+}
+
+.glass-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px var(--card-neon-glow-color, rgba(255, 255, 255, 0.2)); /* Increased shadow and glow intensity */
+  background: color-mix(in srgb, var(--card-neon-glow-color) 20%, rgba(0, 0, 0, 0.9));
+}
+/* Improved Neon Button Styles */
+.neon-button {
+  position: relative;
+  background: rgba(0, 0, 0, 0.3); /* Darker, slightly transparent background */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle border */
+  backdrop-filter: blur(10px); /* Glassmorphism blur */
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  /* Initial subtle glow, using a generic light color for the base glass look */
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+  /* Attempt for grainy look: subtle radial gradient */
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.02) 1px, transparent 1%);
+  background-size: 3px 3px; /* Small size for grain effect */
+}
+
+.neon-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease-in-out;
+}
+
+.neon-button:hover {
+  transform: translateY(-2px); /* Subtle lift */
+  /* Enhanced glow on hover, using a more prominent white/light glow for the glass effect */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 0 0 25px rgba(255, 255, 255, 0.1);
+  /* No background-color change on hover for the base, specific colors will override */
+}
+
+.neon-button:hover::before {
+  left: 100%; /* Swipe effect */
+}
+
+/* Ensure icons stay visible on hover */
+.neon-button svg {
+  position: relative;
+  z-index: 10;
+  transition: none !important;
+}
+
+/* Specific neon button colors and their hover states */
+.neon-blue {
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+.neon-blue:hover {
+  background-color: rgba(59, 130, 246, 0.3) !important;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 30px rgba(59, 130, 246, 0.4);
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+  color: #60a5fa !important;
+}
+.neon-blue svg {
+  color: #3b82f6 !important;
+}
+.neon-blue:hover svg {
+  color: #60a5fa !important;
+}
+
+.neon-purple {
+  color: #8b5cf6;
+  border-color: #8b5cf6;
+}
+.neon-purple:hover {
+  background-color: rgba(139, 92, 246, 0.3) !important;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 30px rgba(139, 92, 246, 0.4);
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+  color: #a78bfa !important;
+}
+.neon-purple svg {
+  color: #8b5cf6 !important;
+}
+.neon-purple:hover svg {
+  color: #a78bfa !important;
+}
+
+.neon-green {
+  color: #10b981;
+  border-color: #10b981;
+}
+.neon-green:hover {
+  background-color: rgba(16, 185, 129, 0.3) !important;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.4);
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+  color: #34d399 !important;
+}
+.neon-green svg {
+  color: #10b981 !important;
+}
+.neon-green:hover svg {
+  color: #34d399 !important;
+}
+
+.neon-pink {
+  color: #ec4899;
+  border-color: #ec4899;
+}
+.neon-pink:hover {
+  background-color: rgba(236, 72, 153, 0.3) !important;
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 30px rgba(236, 72, 153, 0.4);
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.8);
+  color: #f472b6 !important;
+}
+.neon-pink svg {
+  color: #ec4899 !important;
+}
+.neon-pink:hover svg {
+  color: #f472b6 !important;
+}
+/* Particle Background */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #3b82f6;
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+/* Progress Bar Glow */
+.progress-glow {
+  position: relative;
+  overflow: hidden;
+}
+.progress-glow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Text Glow Effects */
+.text-glow-blue {
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.8), 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.text-glow-purple {
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.8), 0 0 20px rgba(139, 92, 246, 0.4);
+}
+
+.text-glow-green {
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.8), 0 0 20px rgba(16, 185, 129, 0.4);
+}
+
+.text-glow-orange {
+  text-shadow: 0 0 10px rgba(249, 115, 22, 0.8), 0 0 20px rgba(249, 115, 22, 0.4);
+}
+
+.text-glow-yellow {
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.8), 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.7);
+} /* Custom Tooltip for Recharts */
+.recharts-tooltip-wrapper {
+  background: rgba(0, 0, 0, 0.7) !important; /* Dark background */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Subtle border */
+  border-radius: 8px !important;
+  backdrop-filter: blur(10px) !important;
+  padding: 10px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.recharts-tooltip-label {
+  color: #e0e0e0 !important; /* Light gray for labels */
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.recharts-tooltip-item {
+  color: #a0a0a0 !important; /* Slightly darker gray for items */
+}
