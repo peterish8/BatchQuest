@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { BookOpen, Timer, Trophy, Users, Brain, TrendingUp, Zap, Target, Sparkles, Rocket } from "lucide-react"
+import { BookOpen, Rocket } from "lucide-react"
 import { GradeSelector } from "@/components/grade-selector"
 import { Dashboard } from "@/components/dashboard"
 import { ParticleBackground } from "@/components/particle-background"
@@ -17,17 +17,180 @@ export default function HomePage() {
     setMounted(true)
   }, [])
 
-  if (!mounted) return null
+  if (!mounted) {
+    return null
+  }
 
   if (isLoggedIn && selectedGrade) {
     return <Dashboard grade={selectedGrade} />
   }
 
-  if (selectedGrade && !isLoggedIn) {
-    return (
-      <div className="min-h-screen relative overflow-hidden">
-        <ParticleBackground />
-        <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
+  return (
+    <div className="min-h-screen relative overflow-hidden bg-gray-900">
+      <ParticleBackground />
+      <div className="relative z-10 container mx-auto px-4 py-16">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+            CBSE Study App
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+              Made Fun & Effective
+            </span>
+          </h1>
+          <p className="text-xl text-gray-300 mb-12 max-w-4xl mx-auto">
+            Master your CBSE syllabus with AI-powered tools, timers, quizzes, and a gamified learning experience!
+          </p>
+        </div>
+
+        <div className="max-w-md mx-auto">
+          <Card className="bg-white/10 backdrop-blur-sm border-0">
+            <CardHeader className="text-center">
+              {selectedGrade ? (
+                <>
+                  <div className="mx-auto w-20 h-20 relative mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full blur-lg opacity-75 animate-pulse" />
+                    <div className="relative w-20 h-20 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                      <BookOpen className="w-10 h-10 text-white" />
+                    </div>
+                  </div>
+                  <CardTitle className="text-3xl font-bold mb-2 text-white">Welcome!</CardTitle>
+                  <CardDescription className="text-gray-300">Grade {selectedGrade} CBSE Study Companion</CardDescription>
+                </>
+              ) : (
+                <>
+                  <CardTitle className="text-3xl font-bold text-white">Get Started</CardTitle>
+                  <CardDescription className="text-gray-300">Select your grade to begin</CardDescription>
+                </>
+              )}
+            </CardHeader>
+            <CardContent>
+              {selectedGrade ? (
+                <div className="space-y-4">
+                  <Button 
+                    className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:opacity-90 transition-opacity" 
+                    size="lg"
+                    onClick={() => setIsLoggedIn(true)}
+                  >
+                    <span className="flex items-center gap-2">
+                      <Rocket className="w-5 h-5" />
+                      Start Learning
+                    </span>
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    className="w-full text-white border-white/20 hover:bg-white/10"
+                    onClick={() => setSelectedGrade(null)}
+                  >
+                    Change Grade
+                  </Button>
+                </div>
+              ) : (
+                <GradeSelector onGradeSelect={setSelectedGrade} />
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+  return (
+    <div className="min-h-screen relative overflow-hidden">
+      <ParticleBackground />
+      <div className="relative z-10 container mx-auto px-4 py-16">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+            CBSE Study App
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+              Made Fun & Effective
+            </span>
+          </h1>
+          <p className="text-xl text-gray-300 mb-12 max-w-4xl mx-auto">
+            Master your CBSE syllabus with AI-powered tools, timers, quizzes, and a gamified learning experience!
+          </p>
+        </div>
+
+        <div className="max-w-md mx-auto">
+          <Card className="bg-white/90 backdrop-blur">
+            <CardHeader className="text-center">
+              <CardTitle className="text-3xl font-bold">Get Started</CardTitle>
+              <CardDescription>Select your grade to begin</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <GradeSelector onGradeSelect={setSelectedGrade} />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+  return (
+    <div className="min-h-screen relative overflow-hidden">
+      <ParticleBackground />
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
+        <div className="max-w-4xl w-full">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-3xl font-bold text-center">CBSE Study App</CardTitle>
+              <CardDescription className="text-center">Your personalized learning companion</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <GradeSelector onGradeSelect={setSelectedGrade} />
+                <Button 
+                  className="w-full" 
+                  size="lg"
+                  onClick={() => setIsLoggedIn(true)}
+                >
+                  Get Started
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+
+  return (
+      // Landing page - when no grade is selected
+  return (
+    <div className="min-h-screen relative overflow-hidden">
+      <ParticleBackground />
+      <div className="relative z-10 container mx-auto px-4 py-16">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+            CBSE Study App
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+              Made Fun & Effective
+            </span>
+          </h1>
+          <p className="text-xl text-gray-300 mb-12 max-w-4xl mx-auto">
+            Master your CBSE syllabus with AI-powered tools, timers, quizzes, and a gamified learning experience!
+          </p>
+        </div>
+
+        <div className="max-w-md mx-auto">
+          <Card className="bg-white/90 backdrop-blur">
+            <CardHeader className="text-center">
+              <CardTitle className="text-3xl font-bold">Get Started</CardTitle>
+              <CardDescription>Select your grade to begin</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <GradeSelector onGradeSelect={setSelectedGrade} />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+  )
           <Card className="w-full max-w-md glass-card hover-lift">
             <CardHeader className="text-center">
               <div className="mx-auto w-20 h-20 relative mb-6">
